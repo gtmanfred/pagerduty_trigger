@@ -1,4 +1,4 @@
-from pagerduty.tests.unit import base
+from pagerduty_trigger.tests.unit import base
 import logging
 
 logger = logging.getLogger(__name__)
@@ -12,11 +12,11 @@ class RedisObject(object):
 class BrokerTest(base.BaseTest):
     def __init__(self, *args, **kwargs):
         super(BrokerTest, self).__init__(*args, **kwargs)
-        from pagerduty import broker
+        from pagerduty_trigger import broker
         self.broker = broker
 
     def setUp(self):
-        self.auto_patch('pagerduty.broker.Redis')
+        self.auto_patch('pagerduty_trigger.broker.Redis')
         self.settings = base.Settings([
             ('REDIS_SERVER', '127.0.0.1')
         ])

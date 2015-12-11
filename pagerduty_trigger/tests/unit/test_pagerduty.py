@@ -1,4 +1,4 @@
-from pagerduty.tests.unit import base
+from pagerduty_trigger.tests.unit import base
 import logging
 
 logger = logging.getLogger(__name__)
@@ -7,12 +7,12 @@ logger = logging.getLogger(__name__)
 class PagerDutyTest(base.BaseTest):
     def __init__(self, *args, **kwargs):
         super(PagerDutyTest, self).__init__(*args, **kwargs)
-        import pagerduty
-        self.pagerduty = pagerduty
+        import pagerduty_trigger
+        self.pagerduty = pagerduty_trigger
 
     def setUp(self):
-        self.auto_patch('pagerduty.broker.Redis')
-        self.pygerduty = self.auto_patch('pagerduty.pygerduty.PagerDuty')
+        self.auto_patch('pagerduty_trigger.broker.Redis')
+        self.pygerduty = self.auto_patch('pagerduty_trigger.pygerduty.PagerDuty')
         self.pagerduty.Pager.pager = None
         self.settings = base.Settings([
             ('PAGERDUTY_SERVICE_KEY', 'pagerdutykey'),
@@ -51,7 +51,7 @@ class PagerDutyTest(base.BaseTest):
         self.assertIsNone(resp)
 
     def test_trigger_incident_redis_locked(self):
-        self.auto_patch('pagerduty.IncidentKeyLock._rconn')
+        self.auto_patch('pagerduty_trigger.IncidentKeyLock._rconn')
         self.pagerduty.IncidentKeyLock._rconn.set.return_value = None
         self.pager = self.pagerduty.Pager(self.settings)
         resp = self.pager.trigger_incident('test', 'test/error')

@@ -7,7 +7,7 @@ from __future__ import absolute_import
 import pygerduty
 import logging
 
-from pagerduty import broker
+from pagerduty_trigger import broker
 
 logger = logging.getLogger(__name__)
 
