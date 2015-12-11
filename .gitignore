@@ -1,0 +1,8 @@
+*.swp
+*.pyc
+/.tox
+/.eggs
+/.coverage
+/.noseids
+/cover/
+/coverage.xml
